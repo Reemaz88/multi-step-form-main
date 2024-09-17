@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./src/index.js",
-    "./src/Components/MyForm.js"
+    "./src/Components/StepOne.js"
   ],
   theme: {
     extend: {},
