@@ -1,54 +1,32 @@
-import React, { useState } from "react";
-import StepOne from "./Components/StepOne";
-import StepTwo from "./Components/StepTwo";
-import StepThree from "./Components/StepThree";
-import StepFour from "./Components/StepFour";
-// import FormStepper from "./Components/FormStepper";
-import { Formik, Form } from "formik";
-import validationSchema from "./schemas/validationSchema";
-import initialValues from "./formData";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from './Components/Sidebar';
+import StepOne from './Components/StepOne';
+import StepTwo from './Components/StepTwo';
+import StepThree from './Components/StepThree';
+import StepFour from './Components/StepFour';
 
-const steps = [
-  { component: StepOne, label: "Personal Info" },
-  { component: StepTwo, label: "Plan Selection" },
-  { component: StepThree, label: "Add-ons" },
-  { component: StepFour, label: "Summary" },
-];
-
-function App() {
-  const [step, setStep] = useState(0);
-
-  const handleNext = (values) => {
-    setStep(step + 1);
-  };
-
-  const handleBack = () => {
-    setStep(step - 1);
-  };
-
-  const CurrentStep = steps[step].component;
+const App = () => {
+  // State to track current step
+  const [currentStep, setCurrentStep] = useState(1);
 
   return (
-    <div className="app-container">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema[step]}
-        onSubmit={handleNext}
-      >
-        {({ values }) => (
-          <Form>
-            <CurrentStep />
-            <div className="buttons">
-              {step > 0 && <button onClick={handleBack}>Back</button>}
-              <button type="submit">{step === steps.length - 1 ? "Submit" : "Next"}</button>
-            </div>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <Router>
+      <div className="flex min-h-screen justify-center bg-blue-50 p-8">
+        {/* Pass currentStep dynamically to Sidebar */}
+        <Sidebar currentStep={currentStep} />
+        <div className="w-2/3 bg-white p-8 rounded-r-lg shadow-md">
+          <Routes>
+            <Route path="/" element={<StepOne setCurrentStep={setCurrentStep} />} />
+            <Route path="/step2" element={<StepTwo setCurrentStep={setCurrentStep} />} />
+            <Route path="/step3" element={<StepThree setCurrentStep={setCurrentStep} />} />
+            <Route path="/step4" element={<StepFour setCurrentStep={setCurrentStep} />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
 
-// <FormStepper steps={steps} currentStep={step} />

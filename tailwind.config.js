@@ -2,11 +2,18 @@
 module.exports = {
   content: [
     "./src/index.js",
-    "./src/Components/StepOne.js"
+    "./src/Components/StepOne.js",
+    "./src/Components/Sidebar.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'custom-bg': "url('/src/assets/images/bg-sidebar-desktop.svg')",
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
 
