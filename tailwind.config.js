@@ -3,7 +3,10 @@ module.exports = {
   content: [
     "./src/index.js",
     "./src/Components/StepOne.js",
-    "./src/Components/Sidebar.js"
+    "./src/Components/Sidebar.js",
+    "./src/Components/StepTwo.js",
+    "./src/Components/StepThree.js",
+    "./src/Components/StepFour.js"
   ],
   theme: {
     extend: {

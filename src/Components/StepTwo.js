@@ -1,15 +1,22 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { useState } from "react";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import arcadeIcon from "../assets/images/icon-arcade.svg";
+import AdvancedIcon from "../assets/images/icon-advanced.svg";
+import proIcon from "../assets/images/icon-pro.svg";
 
-// Validation schema for Step Two (e.g., Select Plan)
+// Validation schema for Step Two
 const validationSchema = Yup.object({
   plan: Yup.string().required("Please select a plan"),
 });
 
 const StepTwo = ({ setCurrentStep }) => {
+  const [isYearly, setIsYearly] = useState(false); // Toggle between monthly and yearly billing
   const navigate = useNavigate();
+
+  // Toggle function
+  const toggleBilling = () => setIsYearly(!isYearly);
 
   return (
     <div className="flex">
@@ -18,34 +25,90 @@ const StepTwo = ({ setCurrentStep }) => {
           initialValues={{ plan: "" }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            console.log(values);
-            setCurrentStep(3); // Set the current step to 3
-            navigate("/step3"); // Navigate to Step Three
+            console.log({ ...values, billing: isYearly ? "yearly" : "monthly" });
+            setCurrentStep(3); // Move to Step 3
+            navigate("/step3");
           }}
         >
-          {() => (
+          {({ setFieldValue, values }) => (
             <Form>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Select Plan</h2>
-              <p className="text-gray-500 mb-6">
-                Please select your plan from the options below.
-              </p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Select your plan</h2>
+              <p className="text-gray-500 mb-6">You have the option of monthly or yearly billing.</p>
 
               {/* Plan Selection Field */}
-              <div className="mb-6">
-                <label htmlFor="plan" className="block text-sm font-semibold text-gray-700">
-                  Plan
-                </label>
-                <Field as="select" name="plan" className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                  <option value="">Select your plan</option>
-                  <option value="basic">Basic Plan</option>
-                  <option value="premium">Premium Plan</option>
-                </Field>
-                <ErrorMessage component="div" name="plan" className="text-red-500 text-sm mt-1" />
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                {/* Arcade Plan */}
+                <div
+                  className={`p-4 border rounded-lg cursor-pointer hover:border-blue-500 ${
+                    values.plan === "arcade" ? "border-blue-500" : "border-gray-300"
+                  }`}
+                  onClick={() => setFieldValue("plan", "arcade")}
+                >
+                  <img src={arcadeIcon} alt="Arcade" className="mb-3" />
+                  <p className="font-semibold">Arcade</p>
+                  <p className="text-gray-500">{isYearly ? "$90/yr" : "$9/mo"}</p>
+                  {isYearly && <p className="text-blue-500">2 months free</p>}
+                </div>
+
+                {/* Advanced Plan */}
+                <div
+                  className={`p-4 border rounded-lg cursor-pointer hover:border-blue-500 ${
+                    values.plan === "advanced" ? "border-blue-500" : "border-gray-300"
+                  }`}
+                  onClick={() => setFieldValue("plan", "advanced")}
+                >
+                  <img src={AdvancedIcon} alt="Advanced" className="mb-3" />
+                  <p className="font-semibold">Advanced</p>
+                  <p className="text-gray-500">{isYearly ? "$120/yr" : "$12/mo"}</p>
+                  {isYearly && <p className="text-blue-500">2 months free</p>}
+                </div>
+
+                {/* Pro Plan */}
+                <div
+                  className={`p-4 border rounded-lg cursor-pointer hover:border-blue-500 ${
+                    values.plan === "pro" ? "border-blue-500" : "border-gray-300"
+                  }`}
+                  onClick={() => setFieldValue("plan", "pro")}
+                >
+                  <img src={proIcon} alt="Pro" className="mb-3" />
+                  <p className="font-semibold">Pro</p>
+                  <p className="text-gray-500">{isYearly ? "$150/yr" : "$15/mo"}</p>
+                  {isYearly && <p className="text-blue-500">2 months free</p>}
+                </div>
               </div>
 
-              {/* Next Step Button */}
-              <div className="flex justify-end">
-                <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              {/* Toggle Button for Monthly/Yearly */}
+              <div className="flex justify-center items-center mt-6 mb-6">
+                <label className="mr-3">Monthly</label>
+                <div
+                  className={`relative inline-block w-16 h-8 rounded-full ${isYearly ? "bg-blue-500" : "bg-gray-300"} cursor-pointer`}
+                  onClick={toggleBilling}
+                >
+                  <div
+                    className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white transition-transform duration-300 ${
+                      isYearly ? "translate-x-8" : ""
+                    }`}
+                  />
+                </div>
+                <label className="ml-3">Yearly</label>
+              </div>
+
+              {/* Go Back and Next Step Buttons */}
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentStep(1);
+                    navigate("/");
+                  }}
+                  className="text-gray-500"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700"
+                >
                   Next Step
                 </button>
               </div>
