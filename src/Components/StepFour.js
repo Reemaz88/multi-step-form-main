@@ -1,7 +1,8 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const StepFour = () => {
+const StepFour = ({setCurrentStep}) => {
+  const navigate = useNavigate(); // Initialize navigate
   return (
     <div className="flex">
 
@@ -36,7 +37,16 @@ const StepFour = () => {
 
         {/* Buttons */}
         <div className="flex justify-between mt-8">
-          <button className="text-gray-500">Go Back</button>
+        <button
+        type="button"
+        onClick={() => {
+          setCurrentStep(2);
+          navigate("/step3"); // Navigate to the previous step
+        }}
+        className="text-gray-500"
+      >
+        Go Back
+      </button>
           <button className="bg-blue-700 text-white px-6 py-2 rounded-lg">Confirm</button>
         </div>
       </div>
