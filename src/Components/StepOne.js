@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setStepOneData } from "../formSlice"; // Import Redux action
 
 const validationSchema = Yup.object({
   name: Yup.string().required("This field is required"),
@@ -11,17 +13,19 @@ const validationSchema = Yup.object({
 
 const StepOne = ({ setCurrentStep }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const stepOneData = useSelector((state) => state.form.stepOneData); // Get the current data from Redux
 
   return (
     <div className="flex">
       <div className="p-8 bg-white w-2/3 rounded-r-lg shadow-md">
         <Formik
-          initialValues={{ name: "", email: "", phone: "" }}
+          initialValues={stepOneData} // Use the state from Redux
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            console.log(values);
-            setCurrentStep(2); // Set the current step to 2
-            navigate("/step2"); // Navigate to Step 2
+            dispatch(setStepOneData(values)); // Save form data to Redux
+            setCurrentStep(2);
+            navigate("/step2");
           }}
         >
           {() => (
