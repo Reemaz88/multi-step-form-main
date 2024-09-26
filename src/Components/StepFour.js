@@ -41,7 +41,7 @@ const StepFour = ({ setCurrentStep }) => {
         <button
         type="button"
         onClick={() => {
-          setCurrentStep(2);
+          setCurrentStep(3);
           navigate("/step3"); // Navigate to the previous step
         }}
         className="text-gray-500"
