@@ -1,59 +1,124 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-
-// Validation schema for Step Three (e.g., Add-ons)
-const validationSchema = Yup.object({
-  addons: Yup.array().required("Please select at least one add-on"),
-});
+import { Formik, Form, Field } from "formik";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const StepThree = ({ setCurrentStep }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize navigate
 
   return (
-    <div className="flex">
-      <div className="p-8 bg-white w-2/3 rounded-r-lg shadow-md">
-        <Formik
-          initialValues={{ addons: [] }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-            setCurrentStep(4); // Set the current step to 4
-            navigate("/step4"); // Navigate to Step Four (Summary)
-          }}
-        >
-          {() => (
-            <Form>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Add-ons</h2>
-              <p className="text-gray-500 mb-6">Please select the add-ons you'd like to include.</p>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Pick add-ons</h2>
+      <p className="text-gray-500 mb-6">Add-ons help enhance your gaming experience.</p>
 
-              {/* Add-ons Field (Multiple Checkboxes) */}
-              <div className="mb-6">
-                <label className="block text-sm font-semibold text-gray-700">Add-ons</label>
-                <div className="mt-2">
-                  <label className="flex items-center">
-                    <Field type="checkbox" name="addons" value="addon1" className="mr-2" />
-                    Add-on 1
-                  </label>
-                  <label className="flex items-center">
-                    <Field type="checkbox" name="addons" value="addon2" className="mr-2" />
-                    Add-on 2
-                  </label>
+      <Formik
+        initialValues={{
+          onlineService: false,
+          largerStorage: false,
+          customizableProfile: false,
+        }}
+        onSubmit={(values) => {
+          console.log(values);
+          setCurrentStep(4); // Proceed to next step
+          navigate("/step4"); // Navigate to the next step
+        }}
+      >
+        {({ values, setFieldValue }) => (
+          <Form>
+            {/* Add-ons Options */}
+            <div className="space-y-4 mb-6">
+              {/* Online Service */}
+              <div
+                className={`flex items-center justify-between p-4 border rounded-lg ${
+                  values.onlineService ? "border-blue-500 bg-blue-50" : "border-gray-300"
+                } cursor-pointer`}
+                onClick={() => setFieldValue("onlineService", !values.onlineService)}
+              >
+                <div className="flex items-center space-x-3">
+                  <Field
+                    type="checkbox"
+                    name="onlineService"
+                    checked={values.onlineService}
+                    className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <div>
+                    <p className="font-semibold text-gray-900">Online service</p>
+                    <p className="text-gray-500">Access to multiplayer games</p>
+                  </div>
                 </div>
-                <ErrorMessage component="div" name="addons" className="text-red-500 text-sm mt-1" />
+                <span className="text-blue-600">+1/mo</span>
               </div>
 
-              {/* Next Step Button */}
-              <div className="flex justify-end">
-                <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  Next Step
-                </button>
+              {/* Larger Storage */}
+              <div
+                className={`flex items-center justify-between p-4 border rounded-lg ${
+                  values.largerStorage ? "border-blue-500 bg-blue-50" : "border-gray-300"
+                } cursor-pointer`}
+                onClick={() => setFieldValue("largerStorage", !values.largerStorage)}
+              >
+                <div className="flex items-center space-x-3">
+                  <Field
+                    type="checkbox"
+                    name="largerStorage"
+                    checked={values.largerStorage}
+                    className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <div>
+                    <p className="font-semibold text-gray-900">Larger storage</p>
+                    <p className="text-gray-500">Extra 1TB of cloud save</p>
+                  </div>
+                </div>
+                <span className="text-blue-600">+2/mo</span>
               </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
+
+              {/* Customizable Profile */}
+              <div
+                className={`flex items-center justify-between p-4 border rounded-lg ${
+                  values.customizableProfile
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-300"
+                } cursor-pointer`}
+                onClick={() =>
+                  setFieldValue("customizableProfile", !values.customizableProfile)
+                }
+              >
+                <div className="flex items-center space-x-3">
+                  <Field
+                    type="checkbox"
+                    name="customizableProfile"
+                    checked={values.customizableProfile}
+                    className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <div>
+                    <p className="font-semibold text-gray-900">Customizable profile</p>
+                    <p className="text-gray-500">Custom theme on your profile</p>
+                  </div>
+                </div>
+                <span className="text-blue-600">+2/mo</span>
+              </div>
+            </div>
+
+            {/* Go Back and Next Step */}
+            <div className="flex justify-between">
+              <button
+                type="button"
+                onClick={() => {
+                  setCurrentStep(2);
+                  navigate("/step2"); // Navigate to the previous step
+                }}
+                className="text-gray-500"
+              >
+                Go Back
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700"
+              >
+                Next Step
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
