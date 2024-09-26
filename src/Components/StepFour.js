@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const StepFour = ({setCurrentStep}) => {
+
+const StepFour = ({ setCurrentStep }) => {
   const navigate = useNavigate(); // Initialize navigate
   return (
     <div className="flex">

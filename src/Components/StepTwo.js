@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePlan } from "../formSlice"; // Import the correct action
 import arcadeIcon from "../assets/images/icon-arcade.svg";
 import AdvancedIcon from "../assets/images/icon-advanced.svg";
 import proIcon from "../assets/images/icon-pro.svg";
@@ -12,20 +14,27 @@ const validationSchema = Yup.object({
 });
 
 const StepTwo = ({ setCurrentStep }) => {
-  const [isYearly, setIsYearly] = useState(false); // Toggle between monthly and yearly billing
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Toggle function
+  // Get current plan and billing data from Redux
+  const { plan, billing } = useSelector((state) => state.form.plan);
+
+  // Determine the current billing cycle (monthly or yearly)
+  const [isYearly, setIsYearly] = useState(billing === "yearly");
+
+  // Toggle function to switch billing between monthly and yearly
   const toggleBilling = () => setIsYearly(!isYearly);
 
   return (
     <div className="flex">
       <div className="p-8 bg-white w-2/3 rounded-r-lg shadow-md">
         <Formik
-          initialValues={{ plan: "" }}
+          initialValues={{ plan: plan || "" }} // Use Redux state for initial values
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            console.log({ ...values, billing: isYearly ? "yearly" : "monthly" });
+            // Dispatch Redux action to update plan data
+            dispatch(updatePlan({ ...values, billing: isYearly ? "yearly" : "monthly" }));
             setCurrentStep(3); // Move to Step 3
             navigate("/step3");
           }}
@@ -98,8 +107,8 @@ const StepTwo = ({ setCurrentStep }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    setCurrentStep(1);
-                    navigate("/");
+                    setCurrentStep(1); // Just set the current step to 1 without resetting values
+                    navigate("/"); // Navigate back to Step One
                   }}
                   className="text-gray-500"
                 >

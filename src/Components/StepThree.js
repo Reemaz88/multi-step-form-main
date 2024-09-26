@@ -1,9 +1,18 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useDispatch, useSelector } from "react-redux";
+import { updateAddOns } from "../formSlice"; // Correctly imported action
 
 const StepThree = ({ setCurrentStep }) => {
   const navigate = useNavigate(); // Initialize navigate
+  const dispatch = useDispatch();
+
+  // Get current add-ons data from Redux
+  const addons = useSelector((state) => state.form.addons) || {};
+  
+  // Destructure with defaults to avoid errors
+  const { onlineService = false, largerStorage = false, customizableProfile = false } = addons;
 
   return (
     <div className="p-6">
@@ -12,12 +21,13 @@ const StepThree = ({ setCurrentStep }) => {
 
       <Formik
         initialValues={{
-          onlineService: false,
-          largerStorage: false,
-          customizableProfile: false,
+          onlineService,
+          largerStorage,
+          customizableProfile,
         }}
         onSubmit={(values) => {
-          console.log(values);
+          // Dispatch Redux action to update add-ons data
+          dispatch(updateAddOns(values)); // Use the correct action name
           setCurrentStep(4); // Proceed to next step
           navigate("/step4"); // Navigate to the next step
         }}
@@ -73,9 +83,7 @@ const StepThree = ({ setCurrentStep }) => {
               {/* Customizable Profile */}
               <div
                 className={`flex items-center justify-between p-4 border rounded-lg ${
-                  values.customizableProfile
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-300"
+                  values.customizableProfile ? "border-blue-500 bg-blue-50" : "border-gray-300"
                 } cursor-pointer`}
                 onClick={() =>
                   setFieldValue("customizableProfile", !values.customizableProfile)

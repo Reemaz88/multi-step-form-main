@@ -1,26 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  stepOneData: { name: '', email: '', phone: '' },
-  stepTwoData: { plan: '', billing: 'monthly' },
-  stepThreeData: { onlineService: false, largerStorage: false, customizableProfile: false },
+  personalInfo: {
+    name: '',
+    email: '',
+    phone: '',
+  },
+  plan: {
+    type: '',
+    duration: '',
+  },
+  addons: {
+    onlineService: false,
+    largerStorage: false,
+    customizableProfile: false,
+  },
 };
 
 const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setStepOneData: (state, action) => {
-      state.stepOneData = action.payload;
+    updatePersonalInfo(state, action) {
+      state.personalInfo = action.payload;
     },
-    setStepTwoData: (state, action) => {
-      state.stepTwoData = action.payload;
+    updatePlan(state, action) {
+      state.plan = action.payload;
     },
-    setStepThreeData: (state, action) => {
-      state.stepThreeData = action.payload;
+    updateAddOns(state, action) {
+      state.addons = action.payload; // Update the addons state
     },
   },
 });
 
-export const { setStepOneData, setStepTwoData, setStepThreeData } = formSlice.actions;
+export const { updatePersonalInfo, updatePlan, updateAddOns } = formSlice.actions;
+
 export default formSlice.reducer;
