@@ -8,11 +8,19 @@ const StepThree = ({ setCurrentStep }) => {
   const navigate = useNavigate(); // Initialize navigate
   const dispatch = useDispatch();
 
-  // Get current add-ons data from Redux
+  // Get current add-ons and billing cycle data from Redux
   const addons = useSelector((state) => state.form.addons) || {};
-  
+  const duration = useSelector((state) => state.form.plan.duration) || 'monthly'; // Default to 'monthly'
+
   // Destructure with defaults to avoid errors
   const { onlineService = false, largerStorage = false, customizableProfile = false } = addons;
+
+  // Define add-on prices based on billing cycle
+  const addonPrices = {
+    onlineService: duration === "yearly" ? "+$10/yr" : "+$1/mo",
+    largerStorage: duration === "yearly" ? "+$20/yr" : "+$2/mo",
+    customizableProfile: duration === "yearly" ? "+$20/yr" : "+$2/mo",
+  };
 
   return (
     <div className="p-6">
@@ -55,7 +63,7 @@ const StepThree = ({ setCurrentStep }) => {
                     <p className="text-gray-500">Access to multiplayer games</p>
                   </div>
                 </div>
-                <span className="text-blue-600">+1/mo</span>
+                <span className="text-blue-600">{addonPrices.onlineService}</span>
               </div>
 
               {/* Larger Storage */}
@@ -77,7 +85,7 @@ const StepThree = ({ setCurrentStep }) => {
                     <p className="text-gray-500">Extra 1TB of cloud save</p>
                   </div>
                 </div>
-                <span className="text-blue-600">+2/mo</span>
+                <span className="text-blue-600">{addonPrices.largerStorage}</span>
               </div>
 
               {/* Customizable Profile */}
@@ -101,7 +109,7 @@ const StepThree = ({ setCurrentStep }) => {
                     <p className="text-gray-500">Custom theme on your profile</p>
                   </div>
                 </div>
-                <span className="text-blue-600">+2/mo</span>
+                <span className="text-blue-600">{addonPrices.customizableProfile}</span>
               </div>
             </div>
 
