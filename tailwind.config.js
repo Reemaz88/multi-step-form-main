@@ -6,7 +6,8 @@ module.exports = {
     "./src/Components/Sidebar.js",
     "./src/Components/StepTwo.js",
     "./src/Components/StepThree.js",
-    "./src/Components/StepFour.js"
+    "./src/Components/StepFour.js",
+    "./src/Components/StepFive.js",
   ],
   theme: {
     extend: {

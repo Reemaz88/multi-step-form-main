@@ -9,10 +9,6 @@ const StepFour = ({ setCurrentStep }) => {
   const { type: plan, duration } = useSelector((state) => state.form.plan);
   const addons = useSelector((state) => state.form.addons);
 
-  console.log("Plan:", plan);
-  console.log("Duration:", duration);
-  console.log("Addons:", addons);
-
   // Determine if it's yearly billing
   const isYearly = duration === "yearly";
 
@@ -40,8 +36,6 @@ const StepFour = ({ setCurrentStep }) => {
   }, 0);
 
   const total = planPrice + addonsTotal;
-
-  console.log("Total Price:", total);
 
   return (
     <div className="p-6">
@@ -111,6 +105,8 @@ const StepFour = ({ setCurrentStep }) => {
           onClick={() => {
             // Handle confirmation logic here (e.g., submit data to a server)
             console.log("Confirmed!");
+            setCurrentStep(4); // Set to Step 5
+            navigate("/step5"); // Navigate to Step 5
           }}
         >
           Confirm

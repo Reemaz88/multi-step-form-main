@@ -5,6 +5,7 @@ import StepOne from './Components/StepOne';
 import StepTwo from './Components/StepTwo';
 import StepThree from './Components/StepThree';
 import StepFour from './Components/StepFour';
+import StepFive from './Components/StepFive'; // Import StepFive
 
 const App = () => {
   // State to track current step
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/step2" element={<StepTwo setCurrentStep={setCurrentStep} />} />
             <Route path="/step3" element={<StepThree setCurrentStep={setCurrentStep} />} />
             <Route path="/step4" element={<StepFour setCurrentStep={setCurrentStep} />} />
+            <Route path="/step5" element={<StepFive />} /> {/* New route for Step 5 */}
           </Routes>
         </div>
       </div>
@@ -29,4 +31,3 @@ const App = () => {
 };
 
 export default App;
-
