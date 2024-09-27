@@ -16,6 +16,8 @@ const StepOne = ({ setCurrentStep }) => {
   const dispatch = useDispatch();
   const personalInfo = useSelector((state) => state.form.personalInfo); // Get current data from Redux
 
+  console.log({personalInfo})
+
   return (
     <div className="flex">
       <div className="p-8 bg-white w-2/3 rounded-r-lg shadow-md">

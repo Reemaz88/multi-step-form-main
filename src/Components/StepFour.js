@@ -6,32 +6,42 @@ const StepFour = ({ setCurrentStep }) => {
   const navigate = useNavigate();
 
   // Get the plan, billing cycle, and addons data from Redux
-  const { plan, duration } = useSelector((state) => state.form.plan);
+  const { type: plan, duration } = useSelector((state) => state.form.plan);
   const addons = useSelector((state) => state.form.addons);
+
+  console.log("Plan:", plan);
+  console.log("Duration:", duration);
+  console.log("Addons:", addons);
 
   // Determine if it's yearly billing
   const isYearly = duration === "yearly";
 
   // Plan prices based on the billing cycle
   const planPrices = {
-    arcade: isYearly ? "$90/yr" : "$9/mo",
-    advanced: isYearly ? "$120/yr" : "$12/mo",
-    pro: isYearly ? "$150/yr" : "$15/mo",
+    arcade: isYearly ? 90 : 9,
+    advanced: isYearly ? 120 : 12,
+    pro: isYearly ? 150 : 15,
   };
 
   // Add-ons prices based on the billing cycle
   const addonPrices = {
-    onlineService: isYearly ? "+$10/yr" : "+$1/mo",
-    largerStorage: isYearly ? "+$20/yr" : "+$2/mo",
-    customizableProfile: isYearly ? "+$20/yr" : "+$2/mo",
+    onlineService: isYearly ? 10 : 1,
+    largerStorage: isYearly ? 20 : 2,
+    customizableProfile: isYearly ? 20 : 2,
   };
 
   // Calculate total price
-  const planPrice = parseFloat(planPrices[plan].replace(/[^0-9]/g, "")) || 0;
+  const planPrice = planPrices[plan] || 0;
   const addonsTotal = Object.keys(addons).reduce((total, key) => {
-    return addons[key] ? total + parseFloat(addonPrices[key].replace(/[^0-9]/g, "")) : total;
+    if (addons[key]) {
+      total += addonPrices[key] || 0;
+    }
+    return total;
   }, 0);
+
   const total = planPrice + addonsTotal;
+
+  console.log("Total Price:", total);
 
   return (
     <div className="p-6">
@@ -53,26 +63,26 @@ const StepFour = ({ setCurrentStep }) => {
               Change
             </button>
           </div>
-          <p className="font-semibold text-gray-900">{planPrices[plan]}</p>
+          <p className="font-semibold text-gray-900">${planPrices[plan]}{isYearly ? '/yr' : '/mo'}</p>
         </div>
 
         {/* Add-ons Details */}
         {addons.onlineService && (
           <div className="flex justify-between items-center mb-3">
             <p className="text-gray-500">Online service</p>
-            <p className="text-gray-900">{addonPrices.onlineService}</p>
+            <p className="text-gray-900">${addonPrices.onlineService}{isYearly ? '/yr' : '/mo'}</p>
           </div>
         )}
         {addons.largerStorage && (
           <div className="flex justify-between items-center mb-3">
             <p className="text-gray-500">Larger storage</p>
-            <p className="text-gray-900">{addonPrices.largerStorage}</p>
+            <p className="text-gray-900">${addonPrices.largerStorage}{isYearly ? '/yr' : '/mo'}</p>
           </div>
         )}
         {addons.customizableProfile && (
           <div className="flex justify-between items-center mb-3">
             <p className="text-gray-500">Customizable profile</p>
-            <p className="text-gray-900">{addonPrices.customizableProfile}</p>
+            <p className="text-gray-900">${addonPrices.customizableProfile}{isYearly ? '/yr' : '/mo'}</p>
           </div>
         )}
 

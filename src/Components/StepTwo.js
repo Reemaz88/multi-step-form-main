@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePlan } from "../formSlice"; // Import the correct action
 import arcadeIcon from "../assets/images/icon-arcade.svg";
-import AdvancedIcon from "../assets/images/icon-advanced.svg";
+import advancedIcon from "../assets/images/icon-advanced.svg";
 import proIcon from "../assets/images/icon-pro.svg";
 
 // Validation schema for Step Two
@@ -17,11 +17,16 @@ const StepTwo = ({ setCurrentStep }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Get current plan and billing data from Redux
-  const { plan, billing } = useSelector((state) => state.form.plan);
-
+  // Get current plan data from Redux
+  const { type: currentPlan, duration: currentDuration } = useSelector((state) => state.form.plan);
+  
   // Determine the current billing cycle (monthly or yearly)
-  const [isYearly, setIsYearly] = useState(billing === "yearly");
+  const [isYearly, setIsYearly] = useState(currentDuration === "yearly");
+
+  // When the component mounts, set `isYearly` based on Redux state
+  useEffect(() => {
+    setIsYearly(currentDuration === "yearly");
+  }, [currentDuration]);
 
   // Toggle function to switch billing between monthly and yearly
   const toggleBilling = () => setIsYearly(!isYearly);
@@ -30,11 +35,11 @@ const StepTwo = ({ setCurrentStep }) => {
     <div className="flex">
       <div className="p-8 bg-white w-2/3 rounded-r-lg shadow-md">
         <Formik
-          initialValues={{ plan: plan || "" }} // Use Redux state for initial values
+          initialValues={{ plan: currentPlan || "" }} // Use Redux state for initial values
           validationSchema={validationSchema}
           onSubmit={(values) => {
             // Dispatch Redux action to update plan data
-            dispatch(updatePlan({ ...values, billing: isYearly ? "yearly" : "monthly" }));
+            dispatch(updatePlan({ type: values.plan, duration: isYearly ? "yearly" : "monthly" }));
             setCurrentStep(3); // Move to Step 3
             navigate("/step3");
           }}
@@ -51,7 +56,7 @@ const StepTwo = ({ setCurrentStep }) => {
                   className={`p-4 border rounded-lg cursor-pointer hover:border-blue-500 ${
                     values.plan === "arcade" ? "border-blue-500" : "border-gray-300"
                   }`}
-                  onClick={() => setFieldValue("plan", "arcade")}
+                  onClick={() => setFieldValue("plan", "arcade")} // Update plan value
                 >
                   <img src={arcadeIcon} alt="Arcade" className="mb-3" />
                   <p className="font-semibold">Arcade</p>
@@ -64,9 +69,9 @@ const StepTwo = ({ setCurrentStep }) => {
                   className={`p-4 border rounded-lg cursor-pointer hover:border-blue-500 ${
                     values.plan === "advanced" ? "border-blue-500" : "border-gray-300"
                   }`}
-                  onClick={() => setFieldValue("plan", "advanced")}
+                  onClick={() => setFieldValue("plan", "advanced")} // Update plan value
                 >
-                  <img src={AdvancedIcon} alt="Advanced" className="mb-3" />
+                  <img src={advancedIcon} alt="Advanced" className="mb-3" />
                   <p className="font-semibold">Advanced</p>
                   <p className="text-gray-500">{isYearly ? "$120/yr" : "$12/mo"}</p>
                   {isYearly && <p className="text-blue-500">2 months free</p>}
@@ -77,7 +82,7 @@ const StepTwo = ({ setCurrentStep }) => {
                   className={`p-4 border rounded-lg cursor-pointer hover:border-blue-500 ${
                     values.plan === "pro" ? "border-blue-500" : "border-gray-300"
                   }`}
-                  onClick={() => setFieldValue("plan", "pro")}
+                  onClick={() => setFieldValue("plan", "pro")} // Update plan value
                 >
                   <img src={proIcon} alt="Pro" className="mb-3" />
                   <p className="font-semibold">Pro</p>

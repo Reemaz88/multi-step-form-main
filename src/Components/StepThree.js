@@ -1,24 +1,18 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useDispatch, useSelector } from "react-redux";
-import { updateAddOns } from "../formSlice";
+import { updateAddOns } from "../formSlice"; // Correctly imported action
 
 const StepThree = ({ setCurrentStep }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize navigate
   const dispatch = useDispatch();
 
-  // Get current add-ons and billing cycle data from Redux
+  // Get current add-ons data from Redux
   const addons = useSelector((state) => state.form.addons) || {};
-  const { billing } = useSelector((state) => state.form.plan);
-
-  // Destructure with defaults
+  
+  // Destructure with defaults to avoid errors
   const { onlineService = false, largerStorage = false, customizableProfile = false } = addons;
-
-  // Set prices based on the billing cycle
-  const prices = billing === "yearly" 
-    ? { onlineService: "+10/yr", largerStorage: "+20/yr", customizableProfile: "+20/yr" }
-    : { onlineService: "+1/mo", largerStorage: "+2/mo", customizableProfile: "+2/mo" };
 
   return (
     <div className="p-6">
@@ -33,9 +27,9 @@ const StepThree = ({ setCurrentStep }) => {
         }}
         onSubmit={(values) => {
           // Dispatch Redux action to update add-ons data
-          dispatch(updateAddOns(values));
-          setCurrentStep(4);
-          navigate("/step4");
+          dispatch(updateAddOns(values)); // Use the correct action name
+          setCurrentStep(4); // Proceed to next step
+          navigate("/step4"); // Navigate to the next step
         }}
       >
         {({ values, setFieldValue }) => (
@@ -61,7 +55,7 @@ const StepThree = ({ setCurrentStep }) => {
                     <p className="text-gray-500">Access to multiplayer games</p>
                   </div>
                 </div>
-                <span className="text-blue-600">{prices.onlineService}</span>
+                <span className="text-blue-600">+1/mo</span>
               </div>
 
               {/* Larger Storage */}
@@ -83,7 +77,7 @@ const StepThree = ({ setCurrentStep }) => {
                     <p className="text-gray-500">Extra 1TB of cloud save</p>
                   </div>
                 </div>
-                <span className="text-blue-600">{prices.largerStorage}</span>
+                <span className="text-blue-600">+2/mo</span>
               </div>
 
               {/* Customizable Profile */}
@@ -107,7 +101,7 @@ const StepThree = ({ setCurrentStep }) => {
                     <p className="text-gray-500">Custom theme on your profile</p>
                   </div>
                 </div>
-                <span className="text-blue-600">{prices.customizableProfile}</span>
+                <span className="text-blue-600">+2/mo</span>
               </div>
             </div>
 
@@ -117,7 +111,7 @@ const StepThree = ({ setCurrentStep }) => {
                 type="button"
                 onClick={() => {
                   setCurrentStep(2);
-                  navigate("/step2");
+                  navigate("/step2"); // Navigate to the previous step
                 }}
                 className="text-gray-500"
               >
