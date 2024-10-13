@@ -1,0 +1,53 @@
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .bg-custom-bg {
+      background-image: url('./assets/images/bg-sidebar-mobile.svg') ; /* Mobile background */
+      position: absolute;
+      top: -550px;
+      left: -13px;
+      width: 104%; /* Full width */
+      height:full ; /* Adjust height to fit mobile design */
+      background-position: top; /* Ensure background aligns at the top */
+      background-size:cont; /* Make sure background covers the area */
+      background-repeat: no-repeat;
+      z-index: -1; /* Move background behind content */
+      border-radius: 0; /* No border radius for mobile */
+    }
+
+    .steps {
+        display:inline-block;
+        margin: 15px;
+        padding: 0;
+        position: relative;
+        top: 600px;
+        left: 76px;
+
+    }
+
+    /* Optional: Adjust content within sidebar for mobile layout */
+    .sidebar {
+      padding-top: 20px;
+    }
+
+    .w-8 {
+      width: 32px;
+      height: 32px;
+    }
+
+    .ml-4 {
+      margin-left: 12px;
+      display: none !important; /* Hide labels */
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+    }
+
+    .step-one {
+        position: absolute;
+        top: 9rem;
+        left: 1rem;
+        width: 90%;
+        height: 77%; 
+    }
+}

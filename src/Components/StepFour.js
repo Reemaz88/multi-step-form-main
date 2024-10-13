@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import '../App.css'; // Import the App.css file here
+
 
 const StepFour = ({ setCurrentStep }) => {
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const StepFour = ({ setCurrentStep }) => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Finishing up</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4 w-full">Finishing up</h2>
       <p className="text-gray-500 mb-6">Double-check everything before confirming.</p>
 
       <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-6">
@@ -101,7 +103,7 @@ const StepFour = ({ setCurrentStep }) => {
         </button>
         <button
           type="button"
-          className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700"
+          className="bg-customDarkBlue text-white py-3 px-6 rounded-lg hover:bg-customPurplishBlue focus:outline-none focus:ring-2 "
           onClick={() => {
             // Handle confirmation logic here (e.g., submit data to a server)
             console.log("Confirmed!");

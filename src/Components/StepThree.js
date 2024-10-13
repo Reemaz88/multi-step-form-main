@@ -3,6 +3,8 @@ import { Formik, Form, Field } from "formik";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddOns } from "../formSlice"; // Correctly imported action
+import '../App.css'; // Import the App.css file here
+
 
 const StepThree = ({ setCurrentStep }) => {
   const navigate = useNavigate(); // Initialize navigate
@@ -24,7 +26,7 @@ const StepThree = ({ setCurrentStep }) => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Pick add-ons</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">Pick add-ons</h2>
       <p className="text-gray-500 mb-6">Add-ons help enhance your gaming experience.</p>
 
       <Formik
@@ -43,7 +45,7 @@ const StepThree = ({ setCurrentStep }) => {
         {({ values, setFieldValue }) => (
           <Form>
             {/* Add-ons Options */}
-            <div className="space-y-4 mb-6">
+            <div className="space-y-4 w-full mb-6">
               {/* Online Service */}
               <div
                 className={`flex items-center justify-between p-4 border rounded-lg ${
@@ -127,8 +129,8 @@ const StepThree = ({ setCurrentStep }) => {
               </button>
               <button
                 type="submit"
-                className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700"
-              >
+                className="bg-customDarkBlue text-white py-3 px-6 rounded-lg hover:bg-customPurplishBlue focus:outline-none focus:ring-2 "
+                >
                 Next Step
               </button>
             </div>

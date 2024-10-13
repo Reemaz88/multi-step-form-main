@@ -1,4 +1,7 @@
 import React from "react";
+import bgImageDesktop from '../assets/images/bg-sidebar-desktop.svg';
+// import bgImageMobile from '../assets/images/bg-sidebar-mobile.svg';
+import '../App.css'; // Import the App.css file here
 
 const Sidebar = ({ currentStep }) => {
   const steps = [
@@ -9,15 +12,21 @@ const Sidebar = ({ currentStep }) => {
   ];
 
   return (
-    <div className="bg-custom-bg bg-cover bg-center text-white p-6 rounded-lg">
+    <div className="bg-custom-bg bg-cover h-full bg-center text-white p-6 rounded-lg" style={{ backgroundImage: `url(${bgImageDesktop})`  }}>
       {steps.map(({ step, label }) => (
-        <div key={step} className="flex items-center mb-6">
-          <div className={`w-8 h-8 ${currentStep === step ? 'bg-blue-300' : 'bg-blue-900'} rounded-full flex items-center justify-center text-white`}>
-            {step}
+        <div key={step} className="flex items-center mb-6 steps">
+          {/* Circle with Step number */}
+          <div className={`w-8 h-8  text-xs flex-shrink-0 ${currentStep === step ? 'bg-blue-300 border-none text-black' : 'bg-transparent border-white text-white'} border rounded-full flex items-center justify-center`}>            {step}
           </div>
-          <p className={`ml-4 uppercase font-semibold ${currentStep === step ? 'text-blue-900' : 'text-white'}`}>
-            {label}
-          </p>
+          {/* Step number and label */}
+          <div className="ml-4">
+            <p className="text-xs uppercase tracking-wide font-normal text-gray-400">
+              Step {step}
+            </p>
+            <p className={`text-sm uppercase font-normal text-white}`}>
+              {label}
+            </p>
+          </div>
         </div>
       ))}
     </div>
@@ -25,3 +34,5 @@ const Sidebar = ({ currentStep }) => {
 };
 
 export default Sidebar;
+
+
