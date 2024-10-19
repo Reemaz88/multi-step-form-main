@@ -26,8 +26,8 @@ const App = () => {
           <div className='w-2/3 p-8 h-full '>
             <Routes>
               <Route
-                default={true}
-                path='/'
+                exact
+                path='*'
                 element={<StepOne setCurrentStep={setCurrentStep} />}
               />
               <Route
