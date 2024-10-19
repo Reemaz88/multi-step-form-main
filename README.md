@@ -47,6 +47,7 @@ src/
 ├── index.js              # Entry point for the React application
 └── ...
 
+```
 
 ## How to Run the Project
 
