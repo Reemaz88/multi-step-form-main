@@ -29,6 +29,7 @@ The form allows users to fill out their information in multiple steps, select a 
 src/
 │
 ├── components/
+│   ├── FormStep.js
 │   ├── Sidebar.js        # Sidebar component with form step navigation
 │   ├── Step1.js          # Form for user information
 │   ├── Step2.js          # Plan selection (monthly/yearly)
@@ -53,12 +54,12 @@ src/
 
 1. **Clone the repository:**
   ```bash
-  git clone https://github.com/your-repo-name/multi-step-form.git
+  git clone https://github.com/Reemaz88/multi-step-form-main
   ```
 
 2. **Navigate to the project directory:**
   ```bash
-  cd multi-step-form
+  cd multi-step-form-main
   ```
 
 3. **Install the dependencies:**
@@ -118,3 +119,5 @@ This project helped reinforce the use of React for creating dynamic UIs and Redu
 ## Credits
 
 The design and assets were provided by Frontend Mentor.
+
+
