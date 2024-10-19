@@ -34,7 +34,7 @@ const StepTwo = ({ setCurrentStep }) => {
   const toggleBilling = () => setIsYearly(!isYearly);
 
   return (
-    <div className="flex">
+    <div className="flex step-two">
       <div className="p-8 bg-white w-full rounded-r-lg ">
         <Formik
           initialValues={{ plan: currentPlan || "" }} // Use Redux state for initial values

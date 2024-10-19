@@ -40,7 +40,7 @@ const StepFour = ({ setCurrentStep }) => {
   const total = planPrice + addonsTotal;
 
   return (
-    <div className="p-6">
+    <div className="p-6 step-four">
       <h2 className="text-3xl font-bold text-gray-900 mb-4 w-full">Finishing up</h2>
       <p className="text-gray-500 mb-6">Double-check everything before confirming.</p>
 

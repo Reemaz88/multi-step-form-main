@@ -19,8 +19,8 @@
         margin: 15px;
         padding: 0;
         position: relative;
-        top: 600px;
-        left: 76px;
+        top: 590px;
+        left: 50px;
 
     }
 
@@ -30,8 +30,8 @@
     }
 
     .w-8 {
-      width: 32px;
-      height: 32px;
+      width: 44px;
+      height: 44px;
     }
 
     .ml-4 {
@@ -43,11 +43,25 @@
       font-size: 0.875rem;
     }
 
-    .step-one {
+    .step-one , .step-two {
         position: absolute;
         top: 9rem;
         left: 1rem;
         width: 90%;
         height: 77%; 
+        border-radius: 5%;
     }
+
+    .step-four , .step-three , .step-five{
+        position: absolute;
+        top: 9rem;
+        left: 1rem;
+        width: 90%;
+        height: 77%;
+        background-color: white;
+        z-index: 10 ; 
+        border-radius: 5%;
+    }
+
+    
 }

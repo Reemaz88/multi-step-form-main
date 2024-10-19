@@ -5,7 +5,7 @@ import '../App.css'; // Import the App.css file here
 
 const StepFive = () => {
   return (
-    <div className="flex items-center justify-center mt-28"> 
+    <div className="flex items-center justify-center mt-28 step-five"> 
       <div className="text-center">        
         <img src={iconThanks} alt="Confirmation" className="mx-auto mb-6" />
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Thank you!</h2>
