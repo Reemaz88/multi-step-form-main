@@ -1,176 +1,112 @@
-# Getting Started with Create React App
+# Multi-step Form Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+This project is based on the **Multi-step Form** coding challenge from [Frontend Mentor](https://www.frontendmentor.io). The goal of this challenge was to build out a responsive, multi-step form that closely matches the provided design.
 
-In the project directory, you can run:
+The form allows users to fill out their information in multiple steps, select a plan, add optional features, and see a summary of their selection before confirmation.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React (version 18)**: The app is built using React to efficiently manage component-based UI and state.
+- **Tailwind CSS**: For styling the form elements and layout, providing a clean and responsive design.
+- **Redux**: Used for global state management, especially to maintain state across different form steps without prop drilling.
+- **Formik & Yup**: Used for form handling and validation. Yup provides schema-based validation, ensuring the fields are filled correctly before moving to the next step.
+- **React Router**: For routing between form steps without reloading the page, giving a smooth, single-page application experience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Key Features
 
-### `npm test`
+- **Multi-step Form Navigation**: Users can navigate through each step of the form, progressing from one section to another, and also go back to previous steps to make changes.
+- **Plan Selection and Add-ons**: Users can choose between monthly and yearly plans, with add-ons that adjust their prices based on the selected plan.
+- **Form Validation**: Each form step has validation to ensure that all required fields are filled out before proceeding to the next step.
+- **Responsive Design**: The design is fully responsive and adjusts based on the screen size, ensuring an optimal layout for mobile and desktop users.
+- **Global State Management**: Redux is used to store the selections across different form steps, allowing easy access to form data throughout the application.
+- **Dynamic Pricing**: Step 3 dynamically displays prices for add-ons based on the selected plan in Step 2 (monthly or yearly).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Structure
 
-### `npm run build`
+```plaintext
+src/
+│
+├── components/
+│   ├── Sidebar.js        # Sidebar component with form step navigation
+│   ├── Step1.js          # Form for user information
+│   ├── Step2.js          # Plan selection (monthly/yearly)
+│   ├── Step3.js          # Add-ons selection
+│   ├── Step4.js          # Summary of selections and confirmation
+│   ├── Step5.js          # Thank you screen after confirmation
+│
+├── redux/
+│   ├── store.js          # Redux store configuration
+│   ├── formSlice.js      # Redux slice for managing form data and state
+│
+├── styles/
+│   ├── tailwind.css      # Custom Tailwind CSS configuration for the project
+│
+├── App.js                # Main component with form routing logic
+├── index.js              # Entry point for the React application
+└── ...
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How to Run the Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the repository:**
+  ```bash
+  git clone https://github.com/your-repo-name/multi-step-form.git
 
-### `npm run eject`
+2. **Navigate to the project directory:**
+  cd multi-step-form
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. **Install the dependencies:**
+  npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. **Start the development server:**
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The app will be running at http://localhost:3000.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## How it Works
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Step-by-step Form
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Step 1:** The user inputs their personal information (name, email, phone number).
+- **Step 2:** The user selects a plan (monthly or yearly) and sees the price accordingly.
+- **Step 3:** The user selects optional add-ons, with the pricing adjusted based on the plan.
+- **Step 4:** The user can review all their choices and confirm the subscription.
+- **Step 5:** After confirmation, the user is shown a thank-you message.
 
-### Code Splitting
+### State Management with Redux
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- The form's data (such as user info, plan selection, and add-ons) is stored globally using Redux.
+- This allows different steps to access the same data without the need to pass props between components.
+- The form's state persists even when the user navigates back to previous steps.
 
-### Analyzing the Bundle Size
+### Form Validation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Form validation is handled using Formik and Yup.
+- Each field is validated on submission of a step. For example, the email is validated to ensure it follows the correct format, and required fields cannot be left empty.
 
-### Making a Progressive Web App
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To deploy the project for production:
 
-### Advanced Configuration
+1. **Build the project:**
+    ```bash
+    npm run build
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. Deploy the `build/` folder to your hosting service of choice (e.g., Vercel, Netlify, or GitHub Pages).
 
-### Deployment
+## Learnings and Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project helped reinforce the use of React for creating dynamic UIs and Redux for managing global state. Using Formik and Yup for form validation ensured a better user experience by preventing invalid data from being submitted.
 
-### `npm run build` fails to minify
+### Future Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Allowing the user to save and return to the form at a later time.
+- Improving the UI with more animations or transitions to enhance the user experience.
 
+## Credits
 
-
-
-
-# Frontend Mentor - Multi-step form
-
-![Design preview for the Multi-step form coding challenge](./design/desktop-preview.jpg)
-
-## Welcome! 👋
-
-Thanks for checking out this front-end coding challenge.
-
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
-
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
-
-## The challenge
-
-Your challenge is to build out this multi-step form and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
-
-- Complete each step of the sequence
-- Go back to a previous step to update their selections
-- See a summary of their selections on the final step and confirm their order
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- Receive form validation messages if:
-  - A field has been missed
-  - The email address is not formatted correctly
-  - A step is submitted, but no selection has been made
-
-Want some support on the challenge? [Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
-
-## Where to find everything
-
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
-
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
-
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
-
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
-
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
-
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
-
-## Building your project
-
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
-
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
-
-## Deploying your project
-
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
-
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
-
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
-
-## Create a custom `README.md`
-
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
-
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
-
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
-
-## Submitting your solution
-
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
-
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
-
-## Sharing your solution
-
-There are multiple places you can share your solution:
-
-1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
-
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
+The design and assets were provided by Frontend Mentor.
