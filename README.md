@@ -54,15 +54,22 @@ src/
 1. **Clone the repository:**
   ```bash
   git clone https://github.com/your-repo-name/multi-step-form.git
+  ```
 
 2. **Navigate to the project directory:**
+  ```bash
   cd multi-step-form
+  ```
 
 3. **Install the dependencies:**
+  ```bash
   npm install
+  ```
 
 4. **Start the development server:**
-npm start
+  ```bash
+  npm start
+  ```
 
 The app will be running at http://localhost:3000.
 
